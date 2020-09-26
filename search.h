@@ -119,4 +119,6 @@ void search_cleanup(void);
 void fill_search_buf(off_t addr, int display_size, search_aid_t *search_aid, search_direction_t direction);
 void free_search_buf(search_aid_t *search_aid);
 
+inline int matches(unsigned char byte, match_criteria_t *criteria);
+
 #endif /* __SEARCH_H__ */

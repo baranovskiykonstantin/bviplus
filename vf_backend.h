@@ -37,7 +37,7 @@
    PROTOTYPES
  ***************/
 void cleanup(file_manager_t * f);
-inline void compute_percent_complete(off_t offset, off_t size, int *complete);
+extern inline void compute_percent_complete(off_t offset, off_t size, int *complete);
 void mod_start_offset(vbuf_t * vb, off_t shift, BOOL increase);
 void mod_parent_size(vbuf_t * vb, off_t shift, BOOL increase);
 void prune(vbuf_undo_list_t * undo_list);

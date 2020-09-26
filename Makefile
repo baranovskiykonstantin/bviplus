@@ -40,7 +40,7 @@ LIBS += pthread
 
 INCLUDES :=
 
-EXTRA_CFLAGS :=
+EXTRA_CFLAGS := -fgnu89-inline
 
 PROFILE ?= 0
 ifneq "$(PROFILE)" "0"
