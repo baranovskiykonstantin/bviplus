@@ -42,14 +42,14 @@ BOOL msg_prompt(char *fmt, ...)
 {
   WINDOW *msgbox;
   char *tok;
-  char msgbox_str[MAX_MSG_BOX_LEN];
-  char msgbox_line[MAX_MSG_BOX_LEN];
+  char msgbox_str[MAX_MSG_BOX_STRLEN];
+  char msgbox_line[MAX_MSG_BOX_STRLEN];
   const char delimiters[] = " \t";
   int x = 1, y = 1, c;
   va_list args;
 
-  memset(msgbox_str, 0, MAX_MSG_BOX_LEN);
-  memset(msgbox_line, 0, MAX_MSG_BOX_LEN);
+  memset(msgbox_str, 0, MAX_MSG_BOX_STRLEN);
+  memset(msgbox_line, 0, MAX_MSG_BOX_STRLEN);
 
   msgbox = newwin(MSG_BOX_H, MSG_BOX_W, MSG_BOX_Y, MSG_BOX_X);
   box(msgbox, 0, 0);
@@ -74,7 +74,7 @@ BOOL msg_prompt(char *fmt, ...)
       y++;
       if (y > (MSG_BOX_H - 2))
         break;
-      memset(msgbox_line, 0, MAX_MSG_BOX_LEN);
+      memset(msgbox_line, 0, MAX_MSG_BOX_STRLEN);
       strncat(msgbox_line, tok, MAX_MSG_BOX_LEN);
     }
 
@@ -85,7 +85,7 @@ BOOL msg_prompt(char *fmt, ...)
   {
     x = 1 + ((MSG_BOX_W - 2) - strlen(msgbox_line))/2;
     mvwaddstr(msgbox, y, x, msgbox_line);
-    memset(msgbox_line, 0, MAX_MSG_BOX_LEN);
+    memset(msgbox_line, 0, MAX_MSG_BOX_STRLEN);
   }
 
   strncat(msgbox_line, "Y / N", MAX_MSG_BOX_LEN);
@@ -112,7 +112,7 @@ void pat_err(const char *error, const char *pattern, int index, int max_index)
 {
   WINDOW *msgbox;
   int pat_len, pat_offset=0, x;
-  char msgbox_line[MAX_MSG_BOX_LEN];
+  char msgbox_line[MAX_MSG_BOX_STRLEN];
 
   if (index > max_index)
     return;
@@ -138,7 +138,7 @@ void pat_err(const char *error, const char *pattern, int index, int max_index)
   mvwaddstr(msgbox, 3, 1, msgbox_line);
   mvwaddstr(msgbox, 4, index - pat_offset + 1, "^");
 
-  memset(msgbox_line, 0, MAX_MSG_BOX_LEN);
+  memset(msgbox_line, 0, MAX_MSG_BOX_STRLEN);
   strncat(msgbox_line, "[PRESS ANY KEY]", MAX_MSG_BOX_LEN);
   x = ((MSG_BOX_W - 2) - strlen(msgbox_line))/2;
   mvwaddstr(msgbox, 5, x, msgbox_line);
@@ -155,14 +155,14 @@ void msg_box(const char *fmt, ...)
 {
   WINDOW *msgbox;
   char *tok;
-  char msgbox_str[MAX_MSG_BOX_LEN];
-  char msgbox_line[MAX_MSG_BOX_LEN];
+  char msgbox_str[MAX_MSG_BOX_STRLEN];
+  char msgbox_line[MAX_MSG_BOX_STRLEN];
   const char delimiters[] = " \t";
   int x = 1, y = 1;
   va_list args;
 
-  memset(msgbox_str, 0, MAX_MSG_BOX_LEN);
-  memset(msgbox_line, 0, MAX_MSG_BOX_LEN);
+  memset(msgbox_str, 0, MAX_MSG_BOX_STRLEN);
+  memset(msgbox_line, 0, MAX_MSG_BOX_STRLEN);
 
   msgbox = newwin(MSG_BOX_H, MSG_BOX_W, MSG_BOX_Y, MSG_BOX_X);
   box(msgbox, 0, 0);
@@ -187,7 +187,7 @@ void msg_box(const char *fmt, ...)
       y++;
       if (y > (MSG_BOX_H - 2))
         return;
-      memset(msgbox_line, 0, MAX_MSG_BOX_LEN);
+      memset(msgbox_line, 0, MAX_MSG_BOX_STRLEN);
       strncat(msgbox_line, tok, MAX_MSG_BOX_LEN);
     }
 
@@ -201,7 +201,7 @@ void msg_box(const char *fmt, ...)
     y++;
     if (y > (MSG_BOX_H - 2))
       return;
-    memset(msgbox_line, 0, MAX_MSG_BOX_LEN);
+    memset(msgbox_line, 0, MAX_MSG_BOX_STRLEN);
   }
 
   strncat(msgbox_line, "[PRESS ANY KEY]", MAX_MSG_BOX_LEN);

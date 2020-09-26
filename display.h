@@ -100,6 +100,7 @@
 #define MSG_BOX_Y (((HEX_BOX_H - MSG_BOX_H) / 2) + HEX_BOX_Y)
 #define MSG_BOX_X (((HEX_BOX_W - MSG_BOX_W) / 2) + HEX_BOX_X)
 #define MAX_MSG_BOX_LEN ((MSG_BOX_H - 3) * (MSG_BOX_W - 2))
+#define MAX_MSG_BOX_STRLEN (MAX_MSG_BOX_LEN + 1)
 
 
 #define MAX_FILE_NAME 265
