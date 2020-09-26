@@ -594,13 +594,12 @@ void update_status_window(void)
     i++;
   }
   size_shadow %= 1024;
-  while (size_shadow > 100)
-    size_shadow /= 10;
+  size_shadow = size_shadow * 100 / 1024;
 
   if (i == 0)
     snprintf(size_text, 31, "(%ju B)", adjusted_size);
   else
-    snprintf(size_text, 31, "(%ju.%ju %ciB)", adjusted_size, size_shadow, metrics[i]);
+    snprintf(size_text, 31, "(%ju.%02ju %ciB)", adjusted_size, size_shadow, metrics[i]);
 
   mvwprintw(window_list[WINDOW_STATUS], 1, 0,
             "%s %08jx/%08jx  %ju/%ju %s",
