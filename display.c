@@ -552,10 +552,11 @@ void update_status_window(void)
   if (macro_key != -1)
     len += snprintf(line+len, MAX_FILE_NAME-len, "[recording '%c']", macro_key + 'a');
   if (is_visual_on()) {
-    off_t start = visual_addr();
     off_t size = visual_span();
-    len += snprintf(line+len, MAX_FILE_NAME-len, "|%jx-%jx| (%jx/%jd)", start,
-                    display_info.cursor_addr, size, size);
+    len += snprintf(line+len, MAX_FILE_NAME-len, "|%jx-%jx| (%jx/%jd)",
+                    display_info.visual_select_addr,
+                    display_info.cursor_addr,
+                    size, size);
   }
 
   line[MAX_FILE_NAME-1] = 0;
