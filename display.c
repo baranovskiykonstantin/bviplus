@@ -234,8 +234,15 @@ void reset_display_info(void)
 void update_display_info(void)
 {
   vf_stat(current_file, &vfstat);
-  display_info.page_start -= display_info.page_start % BYTES_PER_LINE;
   display_info.file_size = vfstat.file_size;
+  if (display_info.page_start >= display_info.file_size)
+  {
+    if (0 == display_info.file_size)
+      display_info.page_start = 0;
+    else
+      display_info.page_start = display_info.file_size - 1;
+  }
+  display_info.page_start -= display_info.page_start % BYTES_PER_LINE;
   display_info.page_end = PAGE_END;
   display_info.has_color = has_colors();
   if (display_info.cursor_addr < display_info.page_start)
