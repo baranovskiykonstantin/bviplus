@@ -683,6 +683,7 @@ void print_screen_buf(off_t addr, char *screen_buf, int screen_buf_size, search_
   int i;
   off_t line_addr = addr;
 
+  werase(window_list[WINDOW_ADDR]);
   werase(window_list[WINDOW_HEX]);
   werase(window_list[WINDOW_ASCII]);
   werase(window_list[WINDOW_STATUS]);
