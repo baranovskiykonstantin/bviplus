@@ -810,6 +810,17 @@ off_t get_next_motion_addr(void)
         jump_addr = action_get_mark(mark);
         action_jump_to(jump_addr, CURSOR_VIRTUAL);
         return display_info.virtual_cursor_addr;
+      case 'g':
+        c = mgetch();
+        switch (c)
+        {
+          case 'g': /* gg */
+            action_cursor_move_file_start(CURSOR_VIRTUAL);
+            return display_info.virtual_cursor_addr;
+          /* ... 'g' + something else */
+          default:
+            break;
+        }
       case 'G':
         if (jump_addr == -1)
           action_cursor_move_file_end(CURSOR_VIRTUAL);
