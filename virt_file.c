@@ -536,7 +536,7 @@ off_t vf_save(file_manager_t * f, int *complete)
         fseeko(f->fm.fp, write_offset - shift, SEEK_SET);
         fread(move_buf[buf_select], 1, tmp->start - write_offset, f->fm.fp);
         fseeko(f->fm.fp, write_offset, SEEK_SET);
-	fwrite(move_buf[buf_select], 1, tmp->start - write_offset, f->fm.fp);
+        fwrite(move_buf[buf_select], 1, tmp->start - write_offset, f->fm.fp);
         write_offset += tmp->start - write_offset;
         compute_percent_complete(write_offset, f->fm.size, complete);
       }
@@ -554,20 +554,21 @@ off_t vf_save(file_manager_t * f, int *complete)
           if(tmp->size + shift > 0)
           {
             fseeko(f->fm.fp, write_offset - shift, SEEK_SET);
-            fread(move_buf[buf_select], 1, tmp->size + shift, f->fm.fp);
+            /* if shift > MAX_SAVE_SHIFT we have a problem =( */
+            shift = fread(move_buf[buf_select], 1, tmp->size + shift, f->fm.fp);
           }
         }
         else                    /* data has been inserted */
         {
           fseeko(f->fm.fp, write_offset, SEEK_SET);
-          fread(move_buf[buf_select] + shift, 1, tmp->size, f->fm.fp);
+        /* if shift > MAX_SAVE_SHIFT we have a problem =( */
+          shift += fread(move_buf[buf_select] + shift, 1, tmp->size, f->fm.fp);
         }
         buf_select = BUF_TOGGLE(buf_select);
         vf_get_buf(f, tmp_buf, write_offset, tmp->size);
         fseeko(f->fm.fp, write_offset, SEEK_SET);
         fwrite(tmp_buf, 1, tmp->size, f->fm.fp);
         free(tmp_buf);
-        shift += tmp->size;     /* if shift > MAX_SAVE_SHIFT we have a problem =( */
         write_offset += tmp->size;
         compute_percent_complete(write_offset, f->fm.size, complete);
         break;
