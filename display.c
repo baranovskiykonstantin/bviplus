@@ -612,9 +612,9 @@ void update_status_window(void)
             "%s %08jx/%08jx  %ju/%ju %s",
             display_info.percent,
             display_info.cursor_addr,
-            display_info.file_size - 1,
+            display_info.file_size - (display_info.file_size != 0),
             display_info.cursor_addr,
-            display_info.file_size - 1,
+            display_info.file_size - (display_info.file_size != 0),
             size_text);
 
   /* reset cursor */
