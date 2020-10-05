@@ -986,11 +986,11 @@ void do_insert(int count, int c)
     if (len2 != 0)
       memcpy(screen_buf + len1, ins_buf + ins_buf_offset, len2);
     if (len3 > 0)
-      vf_get_buf(current_file, screen_buf + len1 + len2 + user_prefs[GROUPING].value, ins_addr, len3);
+      len3 = vf_get_buf(current_file, screen_buf + len1 + len2 + user_prefs[GROUPING].value, ins_addr, len3);
     else
       len3 = 0;
 
-    print_screen_buf(page_start, screen_buf, len1+len2+1+len3, NULL);
+    print_screen_buf(page_start, screen_buf, len1+len2+user_prefs[GROUPING].value+len3, NULL);
 
     if (display_info.cursor_window == WINDOW_HEX)
     {
