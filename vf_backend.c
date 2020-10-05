@@ -812,7 +812,7 @@ size_t _get_buf(vbuf_t * vb, char *dest, off_t offset, size_t len)
       else
         read_len = tmp->start - tmp_offset;
 
-      /* switch current type and cpy all data */
+      /* switch current type and copy all data */
       switch(vb->buf_type)
       {
         case TYPE_FILE:
@@ -841,6 +841,8 @@ size_t _get_buf(vbuf_t * vb, char *dest, off_t offset, size_t len)
 
           if (tmp->buf_type == TYPE_INSERT)
             shift -= tmp->size;
+          else /* TYPE_REPLACE */
+            shift += get_internal_shift(tmp);
 
           if(tmp_offset + tmp_len < tmp->start + tmp->size)
             read_len = tmp_len;
@@ -864,6 +866,8 @@ size_t _get_buf(vbuf_t * vb, char *dest, off_t offset, size_t len)
     {
       if (tmp->buf_type == TYPE_INSERT)
         shift -= tmp->size;
+      else if (tmp->buf_type == TYPE_REPLACE)
+        shift += get_internal_shift(tmp);
       else if (tmp->buf_type == TYPE_DELETE)
         shift += tmp->size;
 
@@ -881,7 +885,7 @@ size_t _get_buf(vbuf_t * vb, char *dest, off_t offset, size_t len)
       else
         read_len = vb->start + vb->size - tmp_offset;
 
-      /* switch current type and cpy all data */
+      /* switch current type and copy all data */
       switch(vb->buf_type)
       {
         case TYPE_FILE:
