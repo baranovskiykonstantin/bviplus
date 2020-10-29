@@ -1389,6 +1389,8 @@ void do_overwrite(int count)
       len3 = 0;
     else
       len3 = PAGE_SIZE - (len1 + len2);
+    if ((ins_addr + len2 + len3) > current_file->fm.size)
+      len3 = current_file->fm.size - (ins_addr + len2);
 
     if (len1 != 0)
       vf_get_buf(current_file, screen_buf, page_start, len1);
@@ -1492,6 +1494,11 @@ void do_overwrite(int count)
       case ESC:
         break;
       default:
+        if ((ins_addr + char_count + tmp_char_count) >= current_file->fm.size)
+        {
+          flash();
+          continue;
+        }
         if (display_info.cursor_window == WINDOW_HEX)
         {
           if (is_hex(c2) == 0)
