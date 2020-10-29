@@ -557,6 +557,10 @@ off_t vf_save(file_manager_t * f, int *complete)
             /* if shift > MAX_SAVE_SHIFT we have a problem =( */
             shift = fread(move_buf[buf_select], 1, tmp->size + shift, f->fm.fp);
           }
+          else
+          {
+            shift += tmp->size;
+          }
         }
         else                    /* data has been inserted */
         {
